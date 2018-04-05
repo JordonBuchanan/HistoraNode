@@ -1,0 +1,66 @@
+var express         = require("express"),
+     app            = express(),
+     bodyParser     = require("body-parser"),
+     nodemailer     = require("nodemailer"),
+     methodOverride = require("method-override"),
+     session        = require("express-session"),
+     LocalStrategy  = require("passport-local"),
+     cookieParser   = require("cookie-parser"),
+     passport       = require("passport");
+
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(__dirname + '/Views/public'));
+app.set('views', __dirname + '/Views');
+app.use(express.static('files'));
+app.use(methodOverride('_method'));
+app.use(cookieParser('secret'));
+app.set("view engine", "ejs");
+
+// PASSPORT CONFIGURATION
+app.use(require("express-session")({
+    secret: "CharlesMartell",
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+//passport.use(new LocalStrategy(User.authenticate()));
+//passport.serializeUser(User.serializeUser());
+//passport.deserializeUser(User.deserializeUser());
+
+//==================
+//GET ROUTES
+//==================
+
+app.get("/", function(req, res){
+    res.render("Home.ejs");
+});
+
+app.get("/About", function(req, res){
+    res.render("About.ejs");
+});
+
+app.get("/Skills", function(req, res){
+    res.render("Skills.ejs")
+});
+
+app.get("/Examples", function(req, res){
+    res.render("Examples.ejs")
+});
+
+app.get("*", function(req, res){
+    res.render("all.ejs")
+});
+
+//app.get("/Contact", function(req, res){
+//  res.render("Contact.ejs")
+//});
+
+//================
+//LISTEN
+//================
+
+var server     =    app.listen(process.env.PORT || 3000,function(){
+    console.log("We have started our server on port 3000");
+});
