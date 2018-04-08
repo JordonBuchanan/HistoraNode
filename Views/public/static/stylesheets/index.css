@@ -6,6 +6,8 @@ body {
     background-image: url(/static/images/HistoraBG7.jpg);
     background-position: 50% 50%;
     background-repeat: no-repeat;
+    background-attachment: fixed;
+
 }
 .navbar-dark .navbar-toggler-icon {
     background-image: url(/static/images/burger.png);
@@ -30,6 +32,7 @@ body {
 button:focus {
     outline-color: white;
   }
+
 .navbar-dark .navbar-nav .nav-link{
     color:white;
 }
@@ -58,4 +61,91 @@ border : 0;
 height: 1px; 
 background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0)); 
 max-width: 500px;
+}
+
+/* All.ejs */
+#fourohfour{
+    margin-top: 100px;
+    font-size: 50px;
+    color: white;
+    text-align: center;
+}
+
+/* Forum */
+.body{
+    background-color: rgba(255,255,255,0.7);
+    color: black;
+    padding: 25px;
+    /* font-family:; */
+}
+.card{
+    border-radius: 10em;
+    text-align: center;
+    font-size: 10px;
+    border: 1px solid rgba(0,0,0, 0.2);
+    margin-bottom: 20px;
+}
+.card-img{
+    height: 15vw;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-top-left-radius: 10em;
+    border-top-right-radius: 10em;
+    border-bottom: 1px solid rgba(0,0,0,0.5);
+}
+.CreateBtn{
+    margin-top:75px;
+}
+.btn-primary {
+    color: white;
+    background-color: black;
+    border: 1px solid white;
+}
+.btn-primary:hover{
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+}
+.CreateBlock{
+    color: black;
+    background-color: black;
+    border: 1px solid black;
+    padding: 20px;
+}
+.CreateBlock:hover{
+    color: white;
+    background-color: black;
+}
+
+/* Show */
+.Show{
+    background-color: rgba(255,255,255, 0.8);
+    color: black;
+    margin-top: 75px;
+    padding: 20px;
+}
+.ShowImg{
+    border: 1px solid black;
+    margin: 0 auto;
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 600px;
+    max-height: 100%;
+}
+.ShowH4{
+    padding: 10px;
+    text-align: center;
+}
+.TextBox{
+    background-color: white;
+    padding: 10px;
+}
+
+/* New */
+.CreatePage{
+    color: white;
+    margin-top: 75px;
+    text-align: center;
 }

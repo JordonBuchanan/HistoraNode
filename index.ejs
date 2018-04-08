@@ -6,6 +6,7 @@ var express         = require("express"),
      session        = require("express-session"),
      LocalStrategy  = require("passport-local"),
      cookieParser   = require("cookie-parser"),
+     mongoose       = require("mongoose"),
      passport       = require("passport");
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -29,6 +30,28 @@ app.use(passport.session());
 //passport.serializeUser(User.serializeUser());
 //passport.deserializeUser(User.deserializeUser());
 
+//SCHEMA SETUP
+mongoose.connect('mongodb://localhost/histora');
+mongoose.Promise = global.Promise;
+var db = mongoose.connection;
+var PostSchema = new mongoose.Schema({
+    name: String,
+    createdAt: { type: Date, default: Date.now },
+    image: String,
+    text: String,
+    comments: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+        }
+    ]
+});
+var Post = mongoose.model("Post", PostSchema);
+
+process.on('unhandledRejection', (reason, p) => {
+    console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+    // application specific logging, throwing an error, or other logic here
+  });
+
 //==================
 //GET ROUTES
 //==================
@@ -37,25 +60,84 @@ app.get("/", function(req, res){
     res.render("Home.ejs");
 });
 
-app.get("/About", function(req, res){
-    res.render("About.ejs");
+app.get("/Forum/new", function(req, res){
+    res.render("new.ejs")
 });
 
-app.get("/Skills", function(req, res){
-    res.render("Skills.ejs")
+app.get("/Forum", function(req, res){
+    Post.find({}, function(err, allPost){
+        if(err){
+            console.log(err);
+        } else {
+            res.render("Forum", {Post:allPost});
+        }
+    });
 });
 
-app.get("/Examples", function(req, res){
-    res.render("Examples.ejs")
+app.get("/Forum/:id", function(req, res){
+    Post.findById(req.params.id).populate("comments").exec(function(err, foundPost){
+        if(err){
+            console.log(err);
+        } else{
+            res.render("show", {Post: foundPost});
+        }
+    })
 });
+
+//===================
+//POST ROUTES
+//===================
+
+app.post("/Forum", function(req, res){
+    var name = req.body.name;
+    var image = req.body.image;
+    var text = req.body.text;
+    var newPost = {name: name, image: image, text: text}
+//get data from form and add to posts array
+    Post.create(newPost, function(err, newlyCreated){
+        if(err){
+            console.log(err);
+        } else{
+            res.redirect("/Forum");
+        }
+    });
+});
+
+//===============
+//COMMENT ROUTES
+//==============
+
+app.get("/Forum/:id/newcomment", function(req, res){
+    Post.findById(req.params.id);
+    res.render("newcomment", {Post: Post});
+});
+
+app.post("/Forum/:id/comments", function(req,res){
+    Post.findById(req.params.id, function(err, Post){
+        if(err){
+            console.log(err);
+            res.redirect("/Forum");
+        }else {
+            comments.create(req.body.comments, function(err, comments){
+                if(err){
+                    console.log(err);
+                } else{
+                    Post.comments.push(comments);
+                    Post.save();
+                    res.redirect("/Forum/" + Post._id);
+                }
+            });
+        }
+    });
+});
+
+//================
+//ALL ROUTE
+//================
 
 app.get("*", function(req, res){
     res.render("all.ejs")
 });
-
-//app.get("/Contact", function(req, res){
-//  res.render("Contact.ejs")
-//});
 
 //================
 //LISTEN

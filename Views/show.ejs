@@ -1,0 +1,17 @@
+<% include partials/header %>
+<div class="container">
+    <div class="row">
+            <div class="col-sm-12 Show">
+                <img class="img-responsive ShowImg" src="<%= Post.image %>">
+                <div class="TextBox">
+                <h4 class="ShowH4"><a><%= Post.name %></a></h4>
+                <p><%= Post.text %></p>
+                </div>
+            </div>
+            <a href="/Forum">Go Back</a>
+    </div>
+</div>
+<% Post.comments.forEach(function(comment){ %>
+    <p><%= comments.author %> - <%= comments.text %></p>
+<% }); %>
+<% include partials/footer %>

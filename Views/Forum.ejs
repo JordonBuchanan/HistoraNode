@@ -1,0 +1,23 @@
+<% include partials/header %>
+<div class="container CreateBtn">
+    <div class="row">
+        <a href="/Forum/new" type="button" class="btn btn-primary btn-block CreateBlock">Create New Post</a>
+    </div>
+</div>
+<div class="container body">
+    <div class="row">
+        <% Post.forEach(function(Post){ %>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img" src="<%= Post.image %>">
+                <div class="card-body">
+                    <h5 class="card-title"><%= Post.name %></h5>
+                    <p class="card-text"><%= Post.text %></p>
+                    <a href="/Forum/<%= Post._id %>" class="btn btn-primary">See More</a>
+                </div>
+            </div>
+        </div>
+        <% }); %>
+    </div>
+</div>
+<% include partials/footer %>
