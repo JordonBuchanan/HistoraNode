@@ -17,6 +17,7 @@
     "express-session": "^1.15.6",
     "local": "^0.3.3",
     "method-override": "^2.3.10",
+    "moment": "^2.22.0",
     "mongoose": "^5.0.14",
     "nodemailer": "^4.6.4",
     "nodemon": "^1.17.3",

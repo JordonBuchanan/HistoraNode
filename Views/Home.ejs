@@ -16,12 +16,18 @@
                         </button>
                         </div>
                         <div class="modal-body">
-                        Register Options
+                            <form action="/register" method="POST">
+                                <input type="text" name="username" placeholder="username">
+                                <input type="password" name="password" placeholder="password">
+                                <input type="email" name="email" placeholder="Hey@outlook.com">
+                                <input type="text" name="firstName" placeholder="lastName">
+                                <input type="text" name="lastName" placeholder="lastName">
+                                <input type="text" name="website" placeholder="website">
+                                <button class="btn btn-primary">Register</button>
+                            </form>
                         </div>
                         <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Register</button>
-                        </div>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                        </div>
                     </div>
                     </div>
                 </div>
@@ -36,11 +42,14 @@
                     </button>
                     </div>
                     <div class="modal-body">
-                    Sign In Options
+                    <form action="/login" method="POST">
+                        <input type="text" name="username" placeholder="username">
+                        <input type ="password" name="password" placeholde="password">
+                        <button class="btn btn-primary" value="submit">Sign In</button>
+                    </form>
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Sign In</button>
                     </div>
                 </div>
                 </div>

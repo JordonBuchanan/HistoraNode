@@ -5,11 +5,19 @@
                 <img class="img-responsive ShowImg" src="<%= Post.image %>">
                 <div class="TextBox">
                 <h4 class="ShowH4"><a><%= Post.name %></a></h4>
+                <p>
+                    <em>Posted by: <%= Post.author.username %> 
+                    <span class="pull-right"><%= moment(Post.createdAt).fromNow() %></span>
+                </p>
                 <p><%= Post.text %></p>
+                
                 </div>
                 <div class="CommentBlock">
                     <% Post.comments.forEach(function(comment){ %>
-                        <p><strong><%= comment.author %></strong><br><%= comment.text %></p>
+                        <p><strong><%= comment.author.username %></strong> 
+                        <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
+                        <br><%= comment.text %>
+                        </p>
                     <% }); %>
                 </div>
             </div>
