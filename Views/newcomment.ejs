@@ -3,10 +3,10 @@
 <div class="container CreatePage">
         <div class="row">
             <div class="col-sm-12">
-                <h2>Create a Comment to <%= Post._id %>:</h2>
+                <h2>Create a Comment to <%= Post.name %>:</h2>
             </div>
             <div style="width:50%; margin: 25px auto;">
-                <form action="/Forum/<%= Post._Id %>/comments" method="POST">
+                <form action="/Forum/<%= Post._id %>/comments" method="POST">
                     <div class="form-group">
                         <input class="form-control" type="text" name="comment[author]" placeholder="author">
                     </div>
