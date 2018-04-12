@@ -9,7 +9,7 @@ var commentSchema = mongoose.Schema({
             ref: "User"
         },
         username: String
-    }
+    },
 });
 
 module.exports = mongoose.model("Comment", commentSchema);

@@ -1,0 +1,38 @@
+<% include ../partials/header %>
+
+<div class="container profileBG">
+    <div class="row">
+        <div class="col-sm-12 profileDiv">
+            <h2 class="profileH"><strong><%= user.username %></strong></h2>
+        </div>
+        <div class="col-sm-6 profileDiv">
+            <strong>First Name:</strong><br>
+            <%= user.firstName %>
+        </div>
+        <div class="col-sm-6 profileDiv">
+            <strong>Last Name:</strong><br>
+            <%= user.lastName %>
+        </div>
+        <div class="col-sm-6 profileDiv">
+            <strong>Email:</strong><br>
+            <a href="mailto:<%= user.email %>"><%= user.email %></a>
+        </div>
+        <div class="col-sm-6 profileDiv">
+            <strong>Website:</strong><br>
+            <a href="<%= user.website %>"><%= user.website %></a>
+        </div>
+        <div class="col-sm-12 profileDiv">
+            <strong>Biography:</strong><br>
+        </div>
+        <div class="col-sm-12 profileDiv">
+            <strong>Posts:</strong><br>
+            <ul>
+            <% posts.forEach(function(posts) { %>
+                <li><a href="/Forum/<%= posts.id %>"><%= posts.name %></a></li>
+            <% }); %>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>

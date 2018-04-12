@@ -6,22 +6,34 @@
                 <div class="TextBox">
                 <h4 class="ShowH4"><a><%= Post.name %></a></h4>
                 <p>
-                    <em>Posted by: <%= Post.author.username %> 
+                    <em>Posted by: <a href="/users/<%= Post.author.id %>"><%= Post.author.username %></a>
                     <span class="pull-right"><%= moment(Post.createdAt).fromNow() %></span>
                 </p>
-                <p><%= Post.text %></p>
-                
+                <p><%= Post.textField %></p>
+                <% if(currentUser && Post.author.id.equals(currentUser._id)){ %>
+                    <a class="btn btn-primary btn-sm" href="/Forum/<%= Post._id %>/edit">Edit Post</a>
+                    <form action="/Forum/<%= Post._id %>?_method=DELETE" method="POST">
+                        <button class="btn btn-primary btn-sm delBtn">Delete Post</button>
+                    </form>
+                <% } %>
                 </div>
                 <div class="CommentBlock">
+                    <a href="/Forum/<%= Post._id %>/newcomment"><button type="button" class="btn btn-primary btn-sm">Add Comment</button></a>
                     <% Post.comments.forEach(function(comment){ %>
                         <p><strong><%= comment.author.username %></strong> 
                         <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
                         <br><%= comment.text %>
                         </p>
+                        <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                            <a class="EditDel" href="/Forum/<%= Post._id %>/comments/<%= comment._id %>/editcomment"><button type="button" class="btn btn-primary btn-sm">Edit</button></a>
+                            <form action="/Forum/<%= Post._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                                <input type="submit" class="btn btn-primary btn-sm EditDel" value="Delete">
+                            </form>
+                        <% } %>
                     <% }); %>
                 </div>
             </div>
-            <a href="/Forum">Go Back</a>
+            <a href="/Forum"><button class="btn btn-lg btn-primary btn-block">Go Back</button></a>
     </div>
 </div>
 \
