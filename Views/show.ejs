@@ -6,7 +6,7 @@
                 <div class="TextBox">
                 <h4 class="ShowH4"><a><%= Post.name %></a></h4>
                 <p>
-                    <em>Posted by: <a href="/users/<%= Post.author.id %>"><%= Post.author.username %></a>
+                    <em>Posted by:</em> <a class="UserA" href="/users/<%= Post.author.id %>"><%= Post.author.username %></a>
                     <span class="pull-right"><%= moment(Post.createdAt).fromNow() %></span>
                 </p>
                 <p><%= Post.textField %></p>
@@ -22,7 +22,7 @@
                     <% Post.comments.forEach(function(comment){ %>
                         <p><strong><%= comment.author.username %></strong> 
                         <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
-                        <br><%= comment.text %>
+                        <br><span class="ComBreak"><%= comment.text %></span>
                         </p>
                         <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
                             <a class="EditDel" href="/Forum/<%= Post._id %>/comments/<%= comment._id %>/editcomment"><button type="button" class="btn btn-primary btn-sm">Edit</button></a>
@@ -33,7 +33,7 @@
                     <% }); %>
                 </div>
             </div>
-            <a href="/Forum"><button class="btn btn-lg btn-primary btn-block">Go Back</button></a>
+            <a href="/Forum">Go Back</a>
     </div>
 </div>
 \

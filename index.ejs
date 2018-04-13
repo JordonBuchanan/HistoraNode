@@ -10,12 +10,14 @@ var express         = require("express"),
      passport       = require("passport"),
      Comment        = require('./models/comment'),
      User           = require('./models/user');
+     flash          = require("connect-flash");
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/Views/public'));
 app.set('views', __dirname + '/Views');
 app.use(express.static('files'));
 app.use(methodOverride('_method'));
+app.use(flash());
 app.use(cookieParser('secret'));
 app.set("view engine", "ejs");
 
@@ -34,6 +36,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
  });
 
@@ -83,6 +87,7 @@ app.get("/Forum/new", isLoggedIn, function(req, res){
 app.get("/Forum", isLoggedIn, function(req, res){
     Post.find({}, function(err, allPost){
         if(err){
+            req.flash("error", "Error");
             console.log(err);
         } else {
             res.render("Forum", {Post:allPost});
@@ -93,6 +98,7 @@ app.get("/Forum", isLoggedIn, function(req, res){
 app.get("/Forum/:id", isLoggedIn, function(req, res){
     Post.findById(req.params.id).populate("comments").exec(function(err, foundPost){
         if(err){
+            req.flash("error", "Post Doesn't Exist");
             console.log(err);
         } else{
             res.render("show", {Post: foundPost});
@@ -109,8 +115,10 @@ app.get("/Forum/:id/edit", checkPostOwn, isLoggedIn, function(req, res){
 app.put("/Forum/:id",checkPostOwn, isLoggedIn, function(req, res){
     Post.findByIdAndUpdate(req.params.id, req.body.Post, function(err, updatedPost){
         if(err){
+            req.flash("error", "Error");
             res.redirect("/Forum");
         } else {
+            req.flash("success", "Edit Successful");
             res.redirect("/Forum/" + req.params.id);
         }
     });
@@ -119,8 +127,10 @@ app.put("/Forum/:id",checkPostOwn, isLoggedIn, function(req, res){
 app.delete("/Forum/:id",checkPostOwn, isLoggedIn, function(req, res){
     Post.findByIdAndRemove(req.params.id, function(err){
         if(err){
+            req.flash("error", "Error");
             res.redirect("/Forum");
         }else{
+            req.flash("success", "Post Deleted");
             res.redirect("/Forum");
         }
     });
@@ -142,8 +152,10 @@ app.post("/Forum", isLoggedIn, function(req, res){
 //get data from form and add to posts array
     Post.create(newPost, function(err, newlyCreated){
         if(err){
+            req.flash("error", "Error");
             console.log(err);
         } else{
+            req.flash("success", "Post Created");
             res.redirect("/Forum");
         }
     });
@@ -155,7 +167,8 @@ app.post("/Forum", isLoggedIn, function(req, res){
 
 app.get("/Forum/:id/newcomment", isLoggedIn, function(req, res){
     Post.findById(req.params.id, function(err, Post){
-        if(err){
+        if(err){                    
+            req.flash("error", "Access Denied");
             console.log(err);
         } else{
             res.render("newcomment", {Post: Post});
@@ -171,6 +184,7 @@ app.post("/Forum/:id/comments", isLoggedIn, function(req,res){
         }else {
             Comment.create(req.body.comment, function(err, comment){
                 if(err){
+                    req.flash("error", "Error");
                     console.log(err);
                 } else{
                     comment.author.id = req.user._id;
@@ -178,6 +192,7 @@ app.post("/Forum/:id/comments", isLoggedIn, function(req,res){
                     comment.save();
                     Post.comments.unshift(comment);
                     Post.save();
+                    req.flash("success", "Comment Added");
                     res.redirect("/Forum/" + Post._id);
                 }
             });
@@ -198,8 +213,10 @@ app.get("/Forum/:id/comments/:comment_id/editcomment", checkCommentOwn, function
 app.put("/Forum/:id/comments/:comment_id", checkCommentOwn, function(req, res){
     Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, UpdatedComments){
         if(err){
+            req.flash("error", "error");
             res.redirect("back");
         } else {
+            req.flash("success", "Comment Edit Successful");
             res.redirect("/Forum/" + req.params.id);
         }
     });
@@ -208,9 +225,10 @@ app.put("/Forum/:id/comments/:comment_id", checkCommentOwn, function(req, res){
 app.delete("/Forum/:id/comments/:comment_id", checkCommentOwn, function(req, res){
     Comment.findByIdAndRemove(req.params.comment_id, function(err){
         if(err){
-
+            req.flash("error", "Error");
             res.redirect("back");
         } else {
+            req.flash("success", "Comment Deleted");
             res.redirect("back");
         }
     });
@@ -231,13 +249,14 @@ app.post("/register", function(req, res){
         });
     User.register(newUser, req.body.password, function(err, user){
        if(err){
-           console.log(err);
-           return res.render("Home")
+            req.flash("error", err.message);
+            return res.render("Home");
        }
        passport.authenticate("local")(req, res, function(){
+          req.flash("success", "Successfully Registered");
           res.redirect("/Forum");
-       })
-    })
+       });
+    });
 });
 
 app.post("/login", passport.authenticate("local", 
@@ -249,6 +268,7 @@ app.post("/login", passport.authenticate("local",
 
 app.get("/logout", function(req, res){
     req.logout();
+    req.flash("success", "Logged Out");
     res.redirect("/");
 });
 
@@ -272,6 +292,7 @@ function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         return next();
     }
+    req.flash("error", "Please Sign In First");
     res.redirect("/");
 }
 
@@ -279,34 +300,40 @@ function checkPostOwn(req, res, next){
     if(req.isAuthenticated()){
         Post.findById(req.params.id, function(err, foundPost){
            if(err){
+               req.flash("error", "Post Not Found");
                res.redirect("back");
            } else {
               if(foundPost.author.id.equals(req.user._id)){
                   next();
               } else {
-                  res.redirect("back");
+                req.flash("error", "Permission Denied");
+                res.redirect("back");
               }
            }
         });
     } else {
-       res.redirect("back");
+        req.flash("error", "Please Sign In First");
+        res.redirect("back");
     }
 }
 function checkCommentOwn(req, res, next){
     if(req.isAuthenticated()){
         Comment.findById(req.params.comment_id, function(err, foundComment){
            if(err){
+               req.flash("error", "Comment Not Found");
                res.redirect("back");
            } else {
               if(foundComment.author.id.equals(req.user._id)){
                   next();
               } else {
+                  req.flash("error", "Permission Denied");
                   res.redirect("back");
               }
            }
         });
     } else {
-       res.redirect("back");
+        req.flash("error", "Please Sign In First");
+        res.redirect("back");
     }
 }
 

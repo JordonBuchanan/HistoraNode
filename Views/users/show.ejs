@@ -15,11 +15,11 @@
         </div>
         <div class="col-sm-6 profileDiv">
             <strong>Email:</strong><br>
-            <a href="mailto:<%= user.email %>"><%= user.email %></a>
+            <a class="UserA" href="mailto:<%= user.email %>"><%= user.email %></a>
         </div>
         <div class="col-sm-6 profileDiv">
             <strong>Website:</strong><br>
-            <a href="<%= user.website %>"><%= user.website %></a>
+            <a class="UserA" href="<%= user.website %>"><%= user.website %></a>
         </div>
         <div class="col-sm-12 profileDiv">
             <strong>Biography:</strong><br>
@@ -28,7 +28,7 @@
             <strong>Posts:</strong><br>
             <ul>
             <% posts.forEach(function(posts) { %>
-                <li><a href="/Forum/<%= posts.id %>"><%= posts.name %></a></li>
+                <li><a class="UserA" href="/Forum/<%= posts.id %>"><%= posts.name %></a></li>
             <% }); %>
             </ul>
         </div>
