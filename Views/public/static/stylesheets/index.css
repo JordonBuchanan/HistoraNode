@@ -85,6 +85,12 @@ height: 1px;
 background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0)); 
 max-width: 500px;
 }
+.hr2{
+    border : 0;
+    height: 1px; 
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)); 
+    max-width: 500px;
+}
 .inputThing{
     padding: 10px;
     margin: 5px;
@@ -158,10 +164,10 @@ max-width: 500px;
     border: 1px solid black;
     margin: 0 auto;
     display: block;
-    width: 100%;
+    width: auto;
     height: auto;
-    max-width: 600px;
-    max-height: 100%;
+    max-width: 800px;
+    max-height: 600px;
 }
 .ShowH4{
     padding: 10px;
@@ -170,6 +176,7 @@ max-width: 500px;
 }
 .ComBreak{
     overflow-wrap: break-word;
+
 }
 .TextBox{
     background-color: white;
@@ -177,8 +184,13 @@ max-width: 500px;
 }
 .CommentBlock{
     background-color: rgba(255,255,255,0.9);
+    padding: 20px;
+    margin: 20px;
+}
+.ComBorder{
+    border-top: 1px solid rgba(0,0,0,0.2);
+    margin-top:10px;
     padding: 10px;
-    margin: 5px 0 5px 0;
 }
 .pull-right{
     float: right;
@@ -187,6 +199,7 @@ max-width: 500px;
 
 .EditDel{
     font-size: 15px;
+    display: inline;
 }
 
 /* New */

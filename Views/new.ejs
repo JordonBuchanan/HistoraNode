@@ -6,12 +6,13 @@
                 <h2>Create a Post:</h2>
             </div>
             <div style="width:50%; margin: 25px auto;">
-                <form action="/Forum" method="POST">
+                <form action="/Forum" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
-                        <input class="form-control" type="text" name="name"placeholder="title">
+                        <input class="form-control" type="text" name="name"placeholder="title" required>
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="text" name="image" placeholder="image url">
+                        <label for="image">Image</label>
+                        <input class="form-control" type="file" id="image" name="image" accept="image/*" required>
                     </div>
                     <div class="form-group">
                         <textarea class="form-control" type="textarea" rows="5" name="textField" placeholder="text"></textarea>

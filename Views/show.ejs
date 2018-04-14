@@ -4,15 +4,15 @@
             <div class="col-sm-12 Show">
                 <img class="img-responsive ShowImg" src="<%= Post.image %>">
                 <div class="TextBox">
-                <h4 class="ShowH4"><a><%= Post.name %></a></h4>
+                <h4 class="ShowH4"><a><%= Post.name %></a></h4><hr class="hr2">
                 <p>
                     <em>Posted by:</em> <a class="UserA" href="/users/<%= Post.author.id %>"><%= Post.author.username %></a>
                     <span class="pull-right"><%= moment(Post.createdAt).fromNow() %></span>
                 </p>
                 <p><%= Post.textField %></p>
                 <% if(currentUser && Post.author.id.equals(currentUser._id)){ %>
-                    <a class="btn btn-primary btn-sm" href="/Forum/<%= Post._id %>/edit">Edit Post</a>
-                    <form action="/Forum/<%= Post._id %>?_method=DELETE" method="POST">
+                    <a class="btn btn-primary btn-sm EditDel" href="/Forum/<%= Post._id %>/edit">Edit Post</a>
+                    <form class="EditDel" action="/Forum/<%= Post._id %>?_method=DELETE" method="POST">
                         <button class="btn btn-primary btn-sm delBtn">Delete Post</button>
                     </form>
                 <% } %>
@@ -20,15 +20,17 @@
                 <div class="CommentBlock">
                     <a href="/Forum/<%= Post._id %>/newcomment"><button type="button" class="btn btn-primary btn-sm">Add Comment</button></a>
                     <% Post.comments.forEach(function(comment){ %>
-                        <p><strong><%= comment.author.username %></strong> 
-                        <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
-                        <br><span class="ComBreak"><%= comment.text %></span>
-                        </p>
-                        <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
-                            <a class="EditDel" href="/Forum/<%= Post._id %>/comments/<%= comment._id %>/editcomment"><button type="button" class="btn btn-primary btn-sm">Edit</button></a>
-                            <form action="/Forum/<%= Post._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-                                <input type="submit" class="btn btn-primary btn-sm EditDel" value="Delete">
-                            </form>
+                        <div class="ComBorder">
+                            <p><strong><%= comment.author.username %></strong> 
+                            <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
+                            <br><span class="ComBreak"><%= comment.text %></span>
+                            </p>
+                            <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                                <a class="EditDel" href="/Forum/<%= Post._id %>/comments/<%= comment._id %>/editcomment"><button type="button" class="btn btn-primary btn-sm">Edit</button></a>
+                                <form class="EditDel" action="/Forum/<%= Post._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                                    <input type="submit" class="btn btn-primary btn-sm" value="Delete">
+                                </form>
+                        </div>
                         <% } %>
                     <% }); %>
                 </div>

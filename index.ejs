@@ -11,6 +11,9 @@ var express         = require("express"),
      Comment        = require('./models/comment'),
      User           = require('./models/user');
      flash          = require("connect-flash");
+     multer         = require('multer');
+
+
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/Views/public'));
@@ -20,6 +23,28 @@ app.use(methodOverride('_method'));
 app.use(flash());
 app.use(cookieParser('secret'));
 app.set("view engine", "ejs");
+
+//IMAGE UPLOADER
+var storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+var imageFilter = function (req, file, cb) {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+var upload = multer({ storage: storage, fileFilter: imageFilter})
+
+var cloudinary = require('cloudinary');
+cloudinary.config({ 
+  cloud_name: 'dumxfw6s6', 
+  api_key: 772524293964862, 
+  api_secret: 'Jg_RcHyalHfmPq1zFhH74UvNMSQ'
+});
 
 // PASSPORT CONFIGURATION
 app.locals.moment = require('moment');
@@ -140,16 +165,18 @@ app.delete("/Forum/:id",checkPostOwn, isLoggedIn, function(req, res){
 //POST ROUTES
 //===================
 
-app.post("/Forum", isLoggedIn, function(req, res){
+app.post("/Forum", isLoggedIn, upload.single('image'), function(req, res){
+    cloudinary.uploader.upload(req.file.path, function(result) {
     var name = req.body.name;
-    var image = req.body.image;
-    var textField = req.body.textField;
+    var image = req.body.image = result.secure_url;
+    var textField = req.body.textField;    
+    
     var author = {
         id: req.user._id,
         username: req.user.username
     }
-    var newPost = {name: name, image: image, textField: textField, author:author}
-//get data from form and add to posts array
+    var newPost = {name: name, image: image, textField: textField, author:author};
+
     Post.create(newPost, function(err, newlyCreated){
         if(err){
             req.flash("error", "Error");
@@ -159,6 +186,7 @@ app.post("/Forum", isLoggedIn, function(req, res){
             res.redirect("/Forum");
         }
     });
+});
 });
 
 //===============
