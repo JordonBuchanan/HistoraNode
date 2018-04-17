@@ -9,6 +9,66 @@ body {
     background-attachment: fixed;
 
 }
+.myBtn{
+    background-color: black;
+    color: white;
+    padding: 10px;
+    height: 50px;
+    letter-spacing:1px;
+    border-color: rgba(255,255,255, 0.5);
+    cursor: pointer;
+}
+.myBtn:hover{
+    background-color: white;
+    color: black;
+    transition-duration: .7s;
+    border-color: rgba(0,0,0, 0.5);
+}
+.myBtnAlt2{
+    background-color: black;
+    color: white;
+    width: 100%;
+    padding: 10px;
+    height: 50px;
+    letter-spacing:1px;
+    border-color: rgba(255,255,255, 0.5);
+    cursor: pointer;
+}
+.myBtnAlt2:hover{
+    background-color: white;
+    color: black;
+    transition-duration: .7s;
+    border-color: rgba(0,0,0, 0.5);
+}
+.myBtnAlt{
+    background-color: white;
+    color: black;
+    padding: 10px;
+    height: 50px;
+    letter-spacing:1px;
+    border-color: rgba(0,0,0,.10);
+    cursor: pointer;
+}
+.myBtnAlt:hover{
+    background-color: black;
+    color: white;
+    transition-duration: .7s;
+    border-color: rgba(255,255,255, 0.5);
+}
+.myBtnSm{
+    background-color: black;
+    color: white;
+    height: 30px;
+    letter-spacing:1px;
+    border-color: rgba(255,255,255, 0.5);
+    cursor: pointer;
+}
+.myBtnSm:hover{
+    background-color: white;
+    color: black;
+    border-color: rgba(0,0,0, 0.5);
+    transition-duration: .7s;
+}
 .navbar-dark .navbar-toggler-icon {
     background-image: url(/static/images/burger.png);
 }
@@ -49,6 +109,9 @@ a{
 a:hover{
     color: gray;
     text-decoration: underline;
+}
+.navbar-dark .navbar-nav .nav-link:hover{
+    color: gray;
 }
 .btn-primary:focus,
 .btn-primary:active:focus,
@@ -142,15 +205,9 @@ max-width: 500px;
     background-color: white;
     border: 1px solid black;
 }
-.CreateBlock{
+.btnA:hover{
     color: black;
-    background-color: black;
-    border: 1px solid black;
-    padding: 20px;
-}
-.CreateBlock:hover{
-    color: white;
-    background-color: black;
+    text-decoration: none;
 }
 
 /* Show */
@@ -164,7 +221,7 @@ max-width: 500px;
     border: 1px solid black;
     margin: 0 auto;
     display: block;
-    width: auto;
+    width: 90vw;
     height: auto;
     max-width: 800px;
     max-height: 600px;

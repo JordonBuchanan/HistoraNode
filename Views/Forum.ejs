@@ -1,7 +1,7 @@
 <% include partials/header %>
 <div class="container CreateBtn">
     <div class="row">
-        <a href="/Forum/new" type="button" class="btn btn-primary btn-block CreateBlock">Create New Post</a>
+        <button class="myBtnAlt2"><a href="/Forum/new" class="btnA">Create A Post</a></button>
     </div>
 </div>
 <div class="container body">
@@ -14,7 +14,7 @@
                     <h5 class="card-title"><%= Post.name %></h5>
                     <p><em>Posted by:</em> <a class="UserA" href="/users/<%= Post.author.id %>"> <%= Post.author.username %></a></p>
                     <!-- <p class="card-text"><%= Post.textField %></p> -->
-                    <a href="/Forum/<%= Post._id %>" class="btn btn-primary">See More</a>
+                    <a href="/Forum/<%= Post._id %>"><button class="myBtn">See More</button></a>
                 </div>
             </div>
         </div>

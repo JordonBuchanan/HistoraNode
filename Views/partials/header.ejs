@@ -30,6 +30,11 @@
                     <ul class="navbar-nav ml-auto">
                         <% if(currentUser){ %>
                             <li class="nav-item">
+                                <% if(currentUser && currentUser.isAdmin) { %>
+                                <a class="nav-link" href="" data-placement="left" data-toggle="popover" title="Popover Header" data-trigger="hover" data-content="Admin Controls Active"><i class="fas fa-lock-open"></i></a>
+                                <% } %>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="/users/<%= currentUser._id %>"><%= currentUser.username %></a>
                             </li>
                             <li class="nav-item">
