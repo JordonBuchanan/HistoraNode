@@ -1,7 +1,7 @@
 body {
     background-color: white;
     color: gray;
-    font-family: 'Cinzel', serif;
+    font-family: 'Merriweather', serif;
     height: 100%;
     background-image: url(/static/images/HistoraBG7.jpg);
     background-position: 50% 50%;
@@ -224,7 +224,6 @@ max-width: 500px;
     width: 65vw;
     height: auto;
     max-width: 800px;
-    max-height: 600px;
 }
 @media only screen and (max-width: 500px) {
     .ShowImg {
