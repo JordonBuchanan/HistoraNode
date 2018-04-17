@@ -68,7 +68,8 @@ app.use(function(req, res, next){
 
 
 //SCHEMA SETUP
-mongoose.connect('mongodb://localhost/histora');
+//mongoose.connect('mongodb://localhost/histora');
+mongoose.connect("mongodb://jordonbuchanan:graciedog@ds247449.mlab.com:47449/histora");
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 var PostSchema = new mongoose.Schema({
