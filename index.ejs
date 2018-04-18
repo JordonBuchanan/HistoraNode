@@ -110,7 +110,7 @@ app.get("/Forum/new", isLoggedIn, function(req, res){
     res.render("new.ejs")
 });
 
-app.get("/Forum", isLoggedIn, function(req, res){
+app.get("/Forum", function(req, res){
     Post.find({}, function(err, allPost){
         if(err){
             req.flash("error", "Error");
