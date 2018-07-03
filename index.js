@@ -12,9 +12,9 @@
         cloudinary     = require('cloudinary');
 
 const indexRouter = require('./Routes/index');
-const Posts = require('./models/Post');
-const User = require('./models/User');
-const Comment = require('./models/Comment')
+const Posts = require('./models/post');
+const User = require('./models/user');
+const Comment = require('./models/comment')
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/Views/public'));

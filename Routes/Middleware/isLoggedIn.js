@@ -1,6 +1,6 @@
-const Post = require('../../models/Post');
-const User = require('../../models/User');
-const Comment = require('../../models/Comment');
+const Post = require('../../models/post');
+const User = require('../../models/user');
+const Comment = require('../../models/comment');
 
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){

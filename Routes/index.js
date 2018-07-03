@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
-const Post = require('../models/Post');
-const User = require('../models/User');
+const Post = require('../models/post');
+const User = require('../models/user');
 const Mongoose = require('mongoose');
-const Comment = require('../models/Comment');
+const Comment = require('../models/comment');
 const checkCommentOwn = require('./Middleware/checkCommentOwn');
 const checkPostOwn = require('./Middleware/checkPostOwn');
 const isLoggedIn = require('./Middleware/isLoggedIn');
