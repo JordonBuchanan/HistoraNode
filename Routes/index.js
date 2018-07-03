@@ -9,6 +9,7 @@ const Comment = require('../models/comment');
 const checkCommentOwn = require('./Middleware/checkCommentOwn');
 const checkPostOwn = require('./Middleware/checkPostOwn');
 const isLoggedIn = require('./Middleware/isLoggedIn');
+const isNotLoggedIn = require('./Middleware/isNotLoggedIn');
 const upload = require('./Middleware/upload');
 
 
@@ -16,7 +17,7 @@ const upload = require('./Middleware/upload');
 //GET ROUTES
 //==================
 
-router.get("/", (req, res) => {
+router.get("/", isNotLoggedIn, (req, res) => {
     res.render("Home.ejs");
 });
 
