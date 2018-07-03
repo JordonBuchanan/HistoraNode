@@ -1,16 +1,30 @@
 <% include partials/header %>
-<div class="container">
+<div class="container introLogins">
     <div class="row">
-        <div class="col-sm-12 Intro">
-            <h1><em>Histora</em></h1><hr>
+        <div class="col-md-6 col-sm-12 Intro">
+            <h1><em>Histora</em></h1>
+            <p class="loginsP">
+                    A social media platform for all individuals who love history and any historical contexts
+                </p>
         </div>
-        <div class="col-m-12 logins">
-          <button type="button" class="myBtnAlt" data-toggle="modal" data-target="#RegisterModal">Register</button>
+        <div class="col-md-6 col-sm-12 logins">
+            <form action="/login" method="POST">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input class="form-control" type="text" name="username" placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input class="form-control" type="password" name="password" placeholder="Enter Password">
+                </div>
+                <button class="myBtnAlt2" value="submit">Sign In</button>
+            </form>
+            <p>Don't Have An Account? <a class="regA" data-toggle="modal" data-target="#RegisterModal">Sign up!</a></p>
             <div class="modal fade" id="RegisterModal" tabindex="-1" role="dialog" aria-labelledby="RegisterModal" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h5 class="modal-title" id="RegisterTitle">Register to Histora</h5>
+                        <h5 class="modal-title" id="RegisterTitle">Sign Up To Histora!</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -18,29 +32,37 @@
                         <div class="modal-body">
                             <form action="/register" method="POST">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="username" placeholder="Username" required>
+                                    <label>Username*</label>
+                                    <input type="text" class="form-control" name="username" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" name="password" placeholder="Password" required>
+                                    <label>Password*</label>
+                                    <input type="password" class="form-control" name="password" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control" name="email" placeholder="Hey@outlook.com" required>
+                                    <label>Email*</label>
+                                    <input type="email" class="form-control" name="email" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="firstName" placeholder="First Name(Optional)">
+                                    <label>First Name</label>
+                                    <input type="text" class="form-control" name="firstName">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="lastName" placeholder="Last Name(Optional)">
+                                    <label>Last Name</label>
+                                    <input type="text" class="form-control" name="lastName">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="website" placeholder="Website(Optional)">
+                                    <label>Website</label>
+                                    <input type="text" class="form-control" name="website">
                                 </div>
                                 <!-- <div class="form-group">
                                     <input type="text" class="form-control" name="adminCode" placeholder="adminCode">
                                 </div> -->
                                 <div class="form-group">
-                                    <input type="textarea" class="form-control" name="biography" placeholder="Biography(Optional)">
+                                    <label>Biography</label>
+                                    <input type="textarea" class="form-control" name="biography">
                                 </div>
+                                <small>*=denotes required fields</small>
                                 <div class="modal-footer">
                                     <button class="myBtnAlt2">Register</button>
                                 </div>                            
@@ -49,32 +71,6 @@
                     </div>
                     </div>
                 </div>
-          <button type="button" class="myBtnAlt" data-toggle="modal" data-target="#SignInModal"><i class="fa fa-user-circle" aria-hidden="true"></i> Sign In</button>
-            <div class="modal fade" id="SignInModal" tabindex="-1" role="dialog" aria-labelledby="SignInModal" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="SignInModalTitle">Sign into Histora</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="/login" method="POST">
-                            <div class="form-group">
-                                <input class="form-control" type="text" name="username" placeholder="username">
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="password" name="password" placeholder="password">
-                            </div>
-                            <div class="modal-footer">
-                                <button class="myBtnAlt2" value="submit">Sign In</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                </div>
-            </div>
             </div>
         </div>
 </div>
