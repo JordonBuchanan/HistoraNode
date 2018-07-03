@@ -2,10 +2,10 @@
   "name": "jb_portfolio",
   "version": "1.0.0",
   "description": "Histora_Master",
-  "main": "index.ejs",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.ejs"
+    "start": "node index.js"
   },
   "author": "Jordon Buchanan",
   "license": "ISC",

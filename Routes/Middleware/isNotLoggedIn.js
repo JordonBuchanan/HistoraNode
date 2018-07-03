@@ -2,12 +2,11 @@ const Post = require('../../models/post');
 const User = require('../../models/user');
 const Comment = require('../../models/comment');
 
-function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()){
+function isNotLoggedIn(req, res, next){
+    if(!req.isAuthenticated()){
         return next();
     }
-    req.flash("error", "Please Sign In First");
-    res.redirect("/");
+    res.redirect("/Forum");
 }
 
-module.exports = isLoggedIn;
+module.exports = isNotLoggedIn;
