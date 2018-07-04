@@ -13,6 +13,7 @@ const isNotLoggedIn = require('./Middleware/isNotLoggedIn');
 const upload = require('./Middleware/upload');
 
 
+
 //==================
 //GET ROUTES
 //==================
@@ -33,7 +34,7 @@ router.get("/Forum", (req, res) => {
         } else {
             res.render("Forum", {Post:allPost});
         }
-    });
+    }).sort({created: 'desc'});
 });
 
 router.get("/Forum/:id", isLoggedIn, (req, res) => {
